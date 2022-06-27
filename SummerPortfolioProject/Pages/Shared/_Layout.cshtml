@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,17 +19,44 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SubmitPortfolio">Submit Portfolio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/StaffLogin">Staff Login</a>
-                        </li>
-                    </ul>
+                    @{
+                        string? LoggedInUsername = HttpContextAccessor.HttpContext?.Session.GetString("LoggedInUsername");
+                        if (LoggedInUsername is null)
+                        {
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/SubmitPortfolio">Submit Portfolio</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav navbar-right">
+                                <li class="nav-item">
+                                    <button class="btn btn-info nav-link" asp-area="" asp-page="/StaffLogin">Staff Login</button>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/ModeratePortfolios">Moderate Portfolios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/ModerateCandidates">Moderate Candidates</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav navbar-right">
+                                <li class="nav-item">
+                                    <button class="btn btn-danger nav-link" asp-area="" asp-page="/StaffLogout">Logout</button>
+                                </li>
+                            </ul>
+                        }
+                    }
                 </div>     
             </div>
         </nav>
