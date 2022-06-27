@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `staff_accounts` (
   `can_moderate_portfolios` bit(1) NOT NULL DEFAULT b'0',
   `can_view_candidates` bit(1) NOT NULL DEFAULT b'0',
   `can_modify_candidates` bit(1) NOT NULL DEFAULT b'0',
+  `can_modify_staff_perms` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING HASH
 );
