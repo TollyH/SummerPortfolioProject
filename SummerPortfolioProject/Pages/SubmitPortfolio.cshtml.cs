@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SummerPortfolioProject.Pages
 {
-    public class SubmitPortfolioModel : PageModel
+    public class SubmitPortfolioModel : PageBase
     {
         public void OnGet()
         {

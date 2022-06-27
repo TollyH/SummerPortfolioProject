@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SummerPortfolioProject.Pages
 {
-    public class ModerateCandidatesModel : PageModel
+    public class ModerateCandidatesModel : PageBase
     {
         public void OnGet()
         {

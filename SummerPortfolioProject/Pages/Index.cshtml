@@ -2,9 +2,8 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    string? LoggedInUsername = HttpContext.Session.GetString("LoggedInUsername");
 
-    if (LoggedInUsername is null)
+    if (@Model.LoggedInUsername is null)
     {
         <div class="text-center">
             <h1 class="display-4">Welcome</h1>
@@ -14,7 +13,7 @@
     else
     {
         <div class="text-center">
-            <h1 class="display-4">Welcome, @LoggedInUsername</h1>
+            <h1 class="display-4">Welcome, @Model.LoggedInUsername</h1>
             <p>You have permission to perform the following tasks:</p>
             <ul>
                 <li>To be implemented</li>

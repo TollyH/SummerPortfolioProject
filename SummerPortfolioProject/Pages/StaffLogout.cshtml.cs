@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SummerPortfolioProject.Pages
 {
-    public class StaffLogoutModel : PageModel
+    public class StaffLogoutModel : PageBase
     {
         public void OnGet()
         {
