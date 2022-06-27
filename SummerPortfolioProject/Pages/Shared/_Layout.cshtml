@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SummerPortfolioProject.styles.css" asp-append-version="true" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -33,7 +34,7 @@
                             </ul>
                             <ul class="navbar-nav navbar-right">
                                 <li class="nav-item">
-                                    <button class="btn btn-info nav-link" asp-area="" asp-page="/StaffLogin">Staff Login</button>
+                                    <a class="btn btn-info nav-link" asp-area="" asp-page="/StaffLogin"><span class="fa fa-user"></span> Staff Login</a>
                                 </li>
                             </ul>
                         }
@@ -52,7 +53,7 @@
                             </ul>
                             <ul class="navbar-nav navbar-right">
                                 <li class="nav-item">
-                                    <button class="btn btn-danger nav-link" asp-area="" asp-page="/StaffLogout">Logout</button>
+                                    <a class="btn btn-danger nav-link" asp-area="" asp-page="/StaffLogout"><span class="fa fa-sign-out"></span> Logout</a>
                                 </li>
                             </ul>
                         }
