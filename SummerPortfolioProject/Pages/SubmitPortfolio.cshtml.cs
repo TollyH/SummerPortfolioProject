@@ -5,5 +5,6 @@ namespace SummerPortfolioProject.Pages
 {
     public class SubmitPortfolioModel : PageBase
     {
+        public SubmitPortfolioModel(MySqlConnector.MySqlConnection sqlConnection) : base(sqlConnection) { }
     }
 }

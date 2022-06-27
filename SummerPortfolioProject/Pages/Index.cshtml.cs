@@ -5,5 +5,6 @@ namespace SummerPortfolioProject.Pages
 {
     public class IndexModel : PageBase
     {
+        public IndexModel(MySqlConnector.MySqlConnection sqlConnection) : base(sqlConnection) { }
     }
 }

@@ -1,3 +1,5 @@
+using MySqlConnector;
+
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +15,8 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddTransient(_ => new MySqlConnection(builder.Configuration["ConnectionStrings:Default"]));
 
 WebApplication? app = builder.Build();
 

@@ -5,5 +5,6 @@ namespace SummerPortfolioProject.Pages.Error
 {
     public class ForbiddenModel : PageBase
     {
+        public ForbiddenModel(MySqlConnector.MySqlConnection sqlConnection) : base(sqlConnection) { }
     }
 }

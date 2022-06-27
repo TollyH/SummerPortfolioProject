@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MySqlConnector;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,7 +8,14 @@ namespace SummerPortfolioProject.Pages
 {
     public class PageBase : PageModel
     {
+        public MySqlConnection SqlConnection;
+
         public string? LoggedInUsername;
+
+        public PageBase(MySqlConnection sqlConnection)
+        {
+            SqlConnection = sqlConnection;
+        }
 
         public void OnGet()
         {
