@@ -2,9 +2,24 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    string? LoggedInUsername = HttpContext.Session.GetString("LoggedInUsername");
+
+    if (LoggedInUsername is null)
+    {
+        <div class="text-center">
+            <h1 class="display-4">Welcome</h1>
+            <p>From here you can either <a asp-page="/SubmitPortfolio">submit a portfolio</a> or <a asp-page="/StaffLogin">login as a staff member</a>.</p>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <h1 class="display-4">Welcome, @LoggedInUsername</h1>
+            <p>You have permission to perform the following tasks:</p>
+            <ul>
+                <li>To be implemented</li>
+            </ul>
+        </div>
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>From here you can either <a asp-page="/SubmitPortfolio">submit a portfolio</a> or <a asp-page="/StaffLogin">login as a staff member</a>.</p>
-</div>
