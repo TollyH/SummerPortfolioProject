@@ -5,8 +5,5 @@ namespace SummerPortfolioProject.Pages
 {
     public class SubmitPortfolioModel : PageBase
     {
-        public void OnGet()
-        {
-        }
     }
 }

@@ -5,8 +5,5 @@ namespace SummerPortfolioProject.Pages
 {
     public class StaffLoginModel : PageBase
     {
-        public void OnGet()
-        {
-        }
     }
 }

@@ -5,9 +5,5 @@ namespace SummerPortfolioProject.Pages
 {
     public class IndexModel : PageBase
     {
-        public void OnGet()
-        {
-
-        }
     }
 }

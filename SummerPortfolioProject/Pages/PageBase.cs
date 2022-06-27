@@ -7,7 +7,7 @@ namespace SummerPortfolioProject.Pages
     {
         public string? LoggedInUsername;
 
-        public PageBase() : base()
+        public void OnGet()
         {
             LoggedInUsername = HttpContext.Session.GetString("LoggedInUsername");
         }

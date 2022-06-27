@@ -5,8 +5,5 @@ namespace SummerPortfolioProject.Pages
 {
     public class ModeratePortfoliosModel : PageBase
     {
-        public void OnGet()
-        {
-        }
     }
 }
