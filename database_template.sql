@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `summer_portfolio_project` 
+CREATE DATABASE IF NOT EXISTS `summer_portfolio_project`;
 USE `summer_portfolio_project`;
 
 CREATE TABLE IF NOT EXISTS `portfolios` (
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `portfolios` (
   `dob` date NOT NULL,
   `location` tinytext NOT NULL,
   `email` tinytext NOT NULL,
-  `image` mediumblob DEFAULT NULL,
+  `image_url` text DEFAULT NULL,
   `approved` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`)
 );
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS `staff_accounts` (
   `username` tinytext NOT NULL,
   `password` tinytext NOT NULL,
   `email` tinytext NOT NULL,
-  `can_view_portfolios` bit(1) NOT NULL DEFAULT b'0',
   `can_moderate_portfolios` bit(1) NOT NULL DEFAULT b'0',
   `can_modify_portfolios` bit(1) NOT NULL DEFAULT b'0',
   `can_modify_staff_perms` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`) USING HASH
+  UNIQUE KEY `username` (`username`) USING HASH,
+  UNIQUE KEY `email` (`email`) USING HASH
 );
