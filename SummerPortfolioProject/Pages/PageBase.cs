@@ -50,5 +50,27 @@ namespace SummerPortfolioProject.Pages
             byte[] computedHash = sha512.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
             return $"{Convert.ToHexString(computedHash)}:{salt}";
         }
+
+        /// <summary>
+        /// Check the staff accounts database to determine if the provided username and password match
+        /// </summary>
+        /// <returns>True if the provided username and password match the database, otherwise false</returns>
+        public bool Authenticate(string username, string password)
+        {
+            SqlConnection.Open();
+            using MySqlCommand command = new("SELECT password FROM staff_accounts WHERE username = (@username);", SqlConnection);
+            _ = command.Parameters.AddWithValue("username", username);
+            using MySqlDataReader reader = command.ExecuteReader();
+            bool authSuccess = false;
+            if (reader.Read())
+            {
+                // If a matching row was found
+                string checkPasswordCombo = reader.GetString("password");
+                string storedSalt = checkPasswordCombo.Split(":")[1];
+                authSuccess = HashPassword(password, storedSalt) == checkPasswordCombo;
+            }
+            SqlConnection.Close();
+            return authSuccess;
+        }
     }
 }
