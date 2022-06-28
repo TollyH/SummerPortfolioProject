@@ -1,5 +1,27 @@
 ﻿@page
 @model SummerPortfolioProject.Pages.StaffLoginModel
+
+<h1 class="display-6">Login to a staff account</h1>
 @{
-	Response.Redirect("/");
+	if (Model.showAuthError)
+	{
+		<div class="alert alert-danger">
+			Incorrect username or password. Please try again.
+		</div>
+	}
 }
+<form method="post" style="margin-top: 20px">
+	<table>
+		<tr>
+			<td><label for="Username">Username</label></td>
+			<td><input name="Username" type="text"/></td>
+		</tr>
+		<tr>
+			<td><label for="Password">Password</label></td>
+			<td><input name="Password" type="password"/></td>
+		</tr>
+		<tr>
+			<td><input type="submit" class="btn btn-success" value="Login"/></td>
+		</tr>
+	</table>
+</form>
