@@ -17,7 +17,7 @@ namespace SummerPortfolioProject.Pages
             SqlConnection = sqlConnection;
         }
 
-        public void OnGet()
+        public virtual void OnGet()
         {
             LoggedInUsername = HttpContext.Session.GetString("LoggedInUsername");
         }

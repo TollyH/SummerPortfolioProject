@@ -1,0 +1,49 @@
+﻿@page
+@model SummerPortfolioProject.Pages.ViewPortfolioModel
+@{
+    ViewData["Title"] = $"Portfolio - {Model.forename} {Model.surname}";
+
+    if (Model.notFound)
+    {
+        <div class="alert alert-danger">
+            The requested portfolio was not found.
+        </div>
+    }
+    else
+    {
+        if (!Model.approved)
+        {
+            Model.RequireLoggedIn();
+        }
+        <table class="table table-bordered" style="float: left; width: @(Model.imageUrl is null ? 100 : 48)%;">
+            <tr>
+                <td class="table-primary">Forename</td>
+                <td>@Model.forename</td>
+            </tr>
+            <tr>
+                <td class="table-primary">Surname</td>
+                <td>@Model.surname</td>
+            </tr>
+            <tr>
+                <td class="table-primary">Date of Birth</td>
+                <td>@Model.dateOfBirth.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td class="table-primary">Location</td>
+                <td>@Model.location</td>
+            </tr>
+            <tr>
+                <td class="table-primary">Email Address</td>
+                <td>@Model.email</td>
+            </tr>
+            <tr>
+                <td class="table-primary">Approved?</td>
+                <td>@(Model.approved ? "Yes" : "No")</td>
+            </tr>
+        </table>
+        if (Model.imageUrl is not null)
+        {
+            <img src="@Model.imageUrl" class="img-fluid" style="float: right; clear: right; border-radius: 6px; width: 48%;"/>
+        }
+    }
+}
