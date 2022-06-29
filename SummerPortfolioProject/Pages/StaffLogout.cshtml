@@ -1,7 +1,7 @@
 ﻿@page
 @model SummerPortfolioProject.Pages.StaffLogoutModel
 @{
-	Model.RequireLoggedIn();
-	HttpContext.Session.Remove("LoggedInUsername");
-	Response.Redirect("/");
+    Model.RequireLoggedIn();
+    HttpContext.Session.Remove("LoggedInUsername");
+    Response.Redirect("/");
 }
