@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+label.required::after {
+    color: #A94442;
+    content: ' *';
+    display: inline;
+}

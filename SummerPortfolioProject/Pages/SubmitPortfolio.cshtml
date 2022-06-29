@@ -2,4 +2,72 @@
 @model SummerPortfolioProject.Pages.SubmitPortfolioModel
 @{
     ViewData["Title"] = "Portfolio Submission";
+
+    if (Model.databaseError)
+    {
+        <div class="alert alert-danger">
+            An unexpected error occured. Please try again.
+        </div>
+    }
+
+    if (Model.stage == 0)
+    {
+        <h1 class="display-6">Submit a portfolio</h1>
+        <form method="post" style="margin-top: 20px">
+            <table>
+                <tr>
+                    <td><label class="required" for="Forename">Forename</label></td>
+                    <td><input name="Forename" type="text" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="required" for="Surname">Surname</label></td>
+                    <td><input name="Surname" type="text" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="required" for="DateOfBirth">Date of Birth</label></td>
+                    <td><input name="DateOfBirth" type="date" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="required" for="Location">Location</label></td>
+                    <td><input name="Location" type="text" required/></td>
+                </tr>
+                <tr>
+                    <td><label class="required" for="Email">Email</label></td>
+                    <td><input name="Email" type="email" required/></td>
+                </tr>
+                <tr>
+                    <td><label for="ImageUrl">Image URL</label></td>
+                    <td><input name="ImageUrl" type="url"/></td>
+                </tr>
+                <tr>
+                    <td><label for="Skills">Skills</label></td>
+                    <td><textarea name="Skills" placeholder="Put skills on separate lines"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="btn btn-success" value="Submit"/></td>
+                </tr>
+            </table>
+        </form>
+    }
+    else if (Model.stage == 1)
+    {
+        <h1 class="display-6">Rank your skills (0 to 5)</h1>
+        <form method="post" style="margin-top: 20px">
+            <table>
+                @foreach (string skill in Model.skills)
+                {
+                    <tr>
+                        <td><label class="required" for="@skill">@skill</label></td>
+                        <td>
+                            <input name="@skill" type="range" value="0" min="0" max="5" step="1" oninput="this.nextElementSibling.value = this.value" required/>
+                            <output for="@skill">0</output>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td><input type="submit" class="btn btn-success" value="Submit"/></td>
+                </tr>
+            </table>
+        </form>
+    }
 }
