@@ -13,7 +13,7 @@
     {
         if (!Model.approved)
         {
-            Model.RequireLoggedIn();
+            Model.RequirePermissions(moderatePortfolios: true);
         }
         <table class="table table-bordered" style="float: left; width: @(Model.imageUrl is null ? 100 : 48)%;">
             <tr>

@@ -1,6 +1,6 @@
 ﻿@page
 @model SummerPortfolioProject.Pages.ModeratePortfoliosModel
 @{
-    Model.RequireLoggedIn();
+    Model.RequirePermissions(moderatePortfolios: true);
     ViewData["Title"] = "Moderate Portfolios";
 }

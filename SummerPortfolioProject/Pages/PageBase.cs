@@ -17,6 +17,13 @@ namespace SummerPortfolioProject.Pages
             SqlConnection = sqlConnection;
         }
 
+        public struct Permissions
+        {
+            public bool ModeratePortfolios { get; set; }
+            public bool ModifyPortfolios { get; set; }
+            public bool ModifyStaffPerms { get; set; }
+        }
+
         public virtual void OnGet()
         {
             LoggedInUsername = HttpContext.Session.GetString("LoggedInUsername");
@@ -25,12 +32,59 @@ namespace SummerPortfolioProject.Pages
         /// <summary>
         /// Redirect the user to the forbidden error page if they aren't logged in.
         /// </summary>
-        public void RequireLoggedIn()
+        public bool RequireLoggedIn()
         {
             if (LoggedInUsername is null)
             {
                 Response.Redirect("/Error/Forbidden");
+                return false;
             }
+            return true;
+        }
+
+        /// <summary>
+        /// Get a <see cref="Permissions"/> struct representing what permissions the current user has.
+        /// </summary>
+        public Permissions GetPermissions()
+        {
+            if (LoggedInUsername is null)
+            {
+                return new Permissions() { ModeratePortfolios = false, ModifyPortfolios = false, ModifyStaffPerms = false };
+            }
+            SqlConnection.Open();
+            using MySqlCommand command = new("SELECT can_moderate_portfolios, can_modify_portfolios, can_modify_staff_perms FROM staff_accounts " +
+                "WHERE username = (@username);", SqlConnection);
+            _ = command.Parameters.AddWithValue("username", LoggedInUsername);
+            using MySqlDataReader reader = command.ExecuteReader();
+            _ = reader.Read();
+            Permissions toReturn = new()
+            {
+                ModeratePortfolios = reader.GetBoolean("can_moderate_portfolios"),
+                ModifyPortfolios = reader.GetBoolean("can_modify_portfolios"),
+                ModifyStaffPerms = reader.GetBoolean("can_modify_staff_perms")
+            };
+            SqlConnection.Close();
+            return toReturn;
+        }
+
+        /// <summary>
+        /// Redirect the user to the forbidden error page if they aren't logged in or don't have the correct permissions.
+        /// </summary>
+        public bool RequirePermissions(bool moderatePortfolios = false, bool modifyPortfolios = false, bool modifyStaffPerms = false)
+        {
+            if (!RequireLoggedIn())
+            {
+                return false;
+            }
+            Permissions currentPermissions = GetPermissions();
+            if ((moderatePortfolios && !currentPermissions.ModeratePortfolios)
+                || (modifyPortfolios && !currentPermissions.ModifyPortfolios)
+                || (modifyStaffPerms && !currentPermissions.ModifyStaffPerms))
+            {
+                Response.Redirect("/Error/Forbidden");
+                return false;
+            }
+            return true;
         }
 
         /// <summary>

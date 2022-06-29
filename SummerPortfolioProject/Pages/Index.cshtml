@@ -22,7 +22,21 @@
             <h1 class="display-4">Welcome, @Model.LoggedInUsername</h1>
             <p>You have permission to perform the following tasks:</p>
             <ul>
-                <li>To be implemented</li>
+                @{
+                    PageBase.Permissions permissions = Model.GetPermissions();
+                    if (permissions.ModeratePortfolios)
+                    {
+                        <li>Moderate Portfolios</li>
+                    }
+                    if (permissions.ModifyPortfolios)
+                    {
+                        <li>Modify Portfolios</li>
+                    }
+                    if (permissions.ModifyStaffPerms)
+                    {
+                        <li>Modify Staff Permissions</li>
+                    }
+                }
             </ul>
         </div>
     }
