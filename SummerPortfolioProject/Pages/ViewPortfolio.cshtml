@@ -24,18 +24,22 @@
                 <th class="table-primary">Surname</th>
                 <td>@Model.surname</td>
             </tr>
-            <tr>
-                <th class="table-primary">Date of Birth</th>
-                <td>@Model.dateOfBirth.ToShortDateString()</td>
-            </tr>
-            <tr>
-                <th class="table-primary">Location</th>
-                <td>@Model.location</td>
-            </tr>
-            <tr>
-                <th class="table-primary">Email Address</th>
-                <td>@Model.email</td>
-            </tr>
+            @if (Model.GetPermissions().ModeratePortfolios)
+            {
+                // Private data that should not be viewable without adaquate permissions
+                <tr>
+                    <th class="table-primary">Date of Birth</th>
+                    <td>@Model.dateOfBirth.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <th class="table-primary">Location</th>
+                    <td>@Model.location</td>
+                </tr>
+                <tr>
+                    <th class="table-primary">Email Address</th>
+                    <td>@Model.email</td>
+                </tr>
+            }
             <tr>
                 <th class="table-primary">Approved?</th>
                 <td>@(Model.approved ? "Yes" : "No")</td>
