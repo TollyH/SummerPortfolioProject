@@ -3,3 +3,28 @@
 @{
     ViewData["Title"] = "View Candidates";
 }
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Forename</th>
+        <th>Surname</th>
+        <th>Skills</th>
+        <th style="width: 0;"><!--Link Buttons--></th>
+    </tr>
+    @foreach (ViewCandidatesModel.PublicCandidate candidate in Model.publicCandidates)
+    {
+        <tr>
+            <td>@candidate.Id</td>
+            <td>@candidate.Forename</td>
+            <td>@candidate.Surname</td>
+            <td><ul>
+                @foreach (KeyValuePair<string, int> skill in candidate.Skills)
+                {
+                    <li><strong>@skill.Key</strong> - @skill.Value</li>
+                }
+            </ul></td>
+            <td style="width: min-content;"><a class="btn btn-info nav-link" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a></td>
+        </tr>
+    }
+</table>
