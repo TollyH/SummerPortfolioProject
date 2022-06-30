@@ -12,7 +12,7 @@ namespace SummerPortfolioProject.Pages
         internal string? location;
         internal string? email;
         internal string? imageUrl;
-        internal List<KeyValuePair<string, string>> skills = new();
+        internal List<KeyValuePair<string, int>> skills = new();
         internal bool approved = false;
 
         internal bool notFound = false;
@@ -39,6 +39,16 @@ namespace SummerPortfolioProject.Pages
             else
             {
                 notFound = true;
+            }
+            SqlConnection.Close();
+
+            SqlConnection.Open();
+            using MySqlCommand skillsCommand = new("SELECT name, rating FROM portfolio_skills WHERE portfolio_id=@id;", SqlConnection);
+            _ = skillsCommand.Parameters.AddWithValue("id", Request.Query["id"].ToString());
+            MySqlDataReader skillsReader = skillsCommand.ExecuteReader();
+            while (skillsReader.Read())
+            {
+                skills.Add(new(skillsReader.GetString("name"), skillsReader.GetInt32("rating")));
             }
             SqlConnection.Close();
         }

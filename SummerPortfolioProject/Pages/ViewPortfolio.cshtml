@@ -17,29 +17,39 @@
         }
         <table class="table table-bordered" style="float: left; width: @(Model.imageUrl is null ? 100 : 48)%;">
             <tr>
-                <td class="table-primary">Forename</td>
+                <th class="table-primary">Forename</th>
                 <td>@Model.forename</td>
             </tr>
             <tr>
-                <td class="table-primary">Surname</td>
+                <th class="table-primary">Surname</th>
                 <td>@Model.surname</td>
             </tr>
             <tr>
-                <td class="table-primary">Date of Birth</td>
+                <th class="table-primary">Date of Birth</th>
                 <td>@Model.dateOfBirth.ToShortDateString()</td>
             </tr>
             <tr>
-                <td class="table-primary">Location</td>
+                <th class="table-primary">Location</th>
                 <td>@Model.location</td>
             </tr>
             <tr>
-                <td class="table-primary">Email Address</td>
+                <th class="table-primary">Email Address</th>
                 <td>@Model.email</td>
             </tr>
             <tr>
-                <td class="table-primary">Approved?</td>
+                <th class="table-primary">Approved?</th>
                 <td>@(Model.approved ? "Yes" : "No")</td>
             </tr>
+            <tr class="table-dark">
+                <th colspan="2" style="text-align: center;">Skills</th>
+            </tr>
+            @foreach (KeyValuePair<string, int> skill in Model.skills)
+            {
+                <tr>
+                    <th class="table-primary">@skill.Key</th>
+                    <td><progress class="progress" max="5" value="@skill.Value"></progress></td>
+                </tr>
+            }
         </table>
         if (Model.imageUrl is not null)
         {
