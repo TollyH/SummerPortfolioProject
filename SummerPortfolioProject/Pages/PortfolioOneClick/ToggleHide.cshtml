@@ -1,0 +1,23 @@
+﻿@page
+@model SummerPortfolioProject.Pages.ToggleHideModel
+@using MySqlConnector
+@{
+    if (Model.RequirePermissions(moderatePortfolios: true, modifyPortfolios: true))
+    {
+        Model.SqlConnection.Open();
+        using MySqlCommand command = new("UPDATE portfolios SET approved = NOT approved WHERE id=@id;", Model.SqlConnection);
+        _ = command.Parameters.AddWithValue("id", Request.Query["id"].ToString());
+        int affectedRows = command.ExecuteNonQuery();
+        Model.SqlConnection.Close();
+        if (affectedRows > 0)
+        {
+            Response.Redirect("/ModeratePortfolios");
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                The requested portfolio was not found.
+            </div>
+        }
+    }
+}

@@ -35,6 +35,14 @@
             </ul></td>
             <td>
                 <a class="btn btn-info table-button nav-link text-black" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a>
+                @if (candidate.Approved)
+                {
+                    <a class="btn btn-warning table-button nav-link text-black" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)"><span class="fa fa-minus"></span> Hide</a>
+                }
+                else
+                {
+                    <a class="btn btn-success table-button nav-link text-white" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)"><span class="fa fa-check"></span> Approve</a>
+                }
                 <a class="btn btn-danger table-button nav-link text-white" href="/PortfolioOneClick/Delete?id=@(candidate.Id)"><span class="fa fa-trash"></span> Delete</a>
             </td>
         </tr>
