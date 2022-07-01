@@ -17,31 +17,31 @@
             <table>
                 <tr>
                     <td><label class="required" for="Forename">Forename</label></td>
-                    <td><input class="form-control m-1" name="Forename" type="text" required/></td>
+                    <td><input class="form-control m-1" name="Forename" type="text" value="@Model.forename" required/></td>
                 </tr>
                 <tr>
                     <td><label class="required" for="Surname">Surname</label></td>
-                    <td><input class="form-control m-1" name="Surname" type="text" required/></td>
+                    <td><input class="form-control m-1" name="Surname" type="text" value="@Model.surname" required/></td>
                 </tr>
                 <tr>
                     <td><label class="required" for="DateOfBirth">Date of Birth</label></td>
-                    <td><input class="form-control m-1" name="DateOfBirth" type="date" required/></td>
+                    <td><input class="form-control m-1" name="DateOfBirth" type="date" value="@Model.dateOfBirth" required/></td>
                 </tr>
                 <tr>
                     <td><label class="required" for="Location">Location</label></td>
-                    <td><input class="form-control m-1" name="Location" type="text" required/></td>
+                    <td><input class="form-control m-1" name="Location" type="text" value="@Model.location" required/></td>
                 </tr>
                 <tr>
                     <td><label class="required" for="Email">Email Address</label></td>
-                    <td><input class="form-control m-1" name="Email" type="email" required/></td>
+                    <td><input class="form-control m-1" name="Email" type="email" value="@Model.email" required/></td>
                 </tr>
                 <tr>
                     <td><label for="ImageUrl">Image URL</label></td>
-                    <td><input class="form-control m-1" name="ImageUrl" type="url"/></td>
+                    <td><input class="form-control m-1" name="ImageUrl" value="@Model.imageUrl" type="url"/></td>
                 </tr>
                 <tr>
                     <td><label for="Skills">Skills</label></td>
-                    <td><textarea class="form-control m-1" name="Skills" placeholder="Put skills on separate lines"></textarea></td>
+                    <td><textarea class="form-control m-1" name="Skills" placeholder="Put skills on separate lines">@string.Join("\r\n", Model.skills.Select(x => x.Key))</textarea></td>
                 </tr>
                 <tr>
                     <td><input type="submit" class="btn btn-success" value="Submit"/></td>
@@ -54,13 +54,13 @@
         <h1 class="display-6">Rank your skills (0 to 5)</h1>
         <form method="post" style="margin-top: 20px">
             <table>
-                @foreach (string skill in Model.skills)
+                @foreach (KeyValuePair<string, int> skill in Model.skills)
                 {
                     <tr>
-                        <td><label class="required" for="@skill">@skill</label></td>
+                        <td><label class="required" for="@skill.Key">@skill.Key</label></td>
                         <td>
-                            <input name="@skill" type="range" value="0" min="0" max="5" step="1" oninput="this.nextElementSibling.value = this.value" required/>
-                            <output for="@skill">0</output>
+                            <input name="@skill.Key" type="range" value="@skill.Value" min="0" max="5" step="1" oninput="this.nextElementSibling.value = this.value" required/>
+                            <output for="@skill.Key">@skill.Value</output>
                         </td>
                     </tr>
                 }

@@ -34,7 +34,8 @@
                 }
             </ul></td>
             <td>
-                <a class="btn btn-info table-button nav-link text-black" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a>
+                <a class="btn btn-primary table-button nav-link text-black" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a>
+                <a class="btn btn-secondary table-button nav-link text-white" href="/SubmitPortfolio?edit_id=@(candidate.Id)"><span class="fa fa-pencil"></span> Edit</a>
                 @if (candidate.Approved)
                 {
                     <a class="btn btn-warning table-button nav-link text-black" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)"><span class="fa fa-minus"></span> Hide</a>
