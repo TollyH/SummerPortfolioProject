@@ -33,7 +33,10 @@
                     <li><strong>@skill.Key</strong> - @skill.Value</li>
                 }
             </ul></td>
-            <td style="width: min-content;"><a class="btn btn-info nav-link" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a></td>
+            <td style="width: min-content;">
+                <a class="btn btn-info nav-link text-black" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a>
+                <a class="btn btn-danger nav-link text-white" href="/PortfolioOneClick/Delete?id=@(candidate.Id)"><span class="fa fa-trash"></span> Delete</a>
+            </td>
         </tr>
     }
 </table>

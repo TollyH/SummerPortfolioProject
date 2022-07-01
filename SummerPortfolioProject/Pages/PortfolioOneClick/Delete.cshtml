@@ -1,0 +1,26 @@
+﻿@page
+@model SummerPortfolioProject.Pages.DeleteModel
+@using MySqlConnector
+@{
+    if (Model.RequirePermissions(moderatePortfolios: true, modifyPortfolios: true))
+    {
+        Model.SqlConnection.Open();
+        using MySqlCommand skillsCommand = new("DELETE FROM portfolio_skills WHERE portfolio_id=@id;", Model.SqlConnection);
+        _ = skillsCommand.Parameters.AddWithValue("id", Request.Query["id"].ToString());
+        _ = skillsCommand.ExecuteNonQuery();
+        using MySqlCommand command = new("DELETE FROM portfolios WHERE id=@id;", Model.SqlConnection);
+        _ = command.Parameters.AddWithValue("id", Request.Query["id"].ToString());
+        int affectedRows = command.ExecuteNonQuery();
+        Model.SqlConnection.Close();
+        if (affectedRows > 0)
+        {
+            Response.Redirect("/ModeratePortfolios");
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                The requested portfolio was not found.
+            </div>
+        }
+    }
+}
