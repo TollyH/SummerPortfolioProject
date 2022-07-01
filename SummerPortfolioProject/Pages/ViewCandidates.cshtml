@@ -10,7 +10,7 @@
         <th>Forename</th>
         <th>Surname</th>
         <th>Skills</th>
-        <th style="width: 0;"><!--Link Buttons--></th>
+        <th style="width: 0px;"><!--Link Buttons--></th>
     </tr>
     @foreach (ViewCandidatesModel.PublicCandidate candidate in Model.publicCandidates)
     {
@@ -24,7 +24,7 @@
                     <li><strong>@skill.Key</strong> - @skill.Value</li>
                 }
             </ul></td>
-            <td style="width: min-content;"><a class="btn btn-info nav-link" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a></td>
+            <td><a class="btn btn-info nav-link table-button text-black" href="/ViewPortfolio?id=@(candidate.Id)"><span class="fa fa-link"></span> View</a></td>
         </tr>
     }
 </table>
