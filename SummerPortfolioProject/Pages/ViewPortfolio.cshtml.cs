@@ -8,7 +8,7 @@ namespace SummerPortfolioProject.Pages
     {
         internal string? surname;
         internal string? forename;
-        internal DateTime dateOfBirth;
+        internal DateOnly dateOfBirth;
         internal string? location;
         internal string? email;
         internal string? imageUrl;
@@ -30,7 +30,7 @@ namespace SummerPortfolioProject.Pages
             {
                 surname = reader.GetString("surname");
                 forename = reader.GetString("forename");
-                dateOfBirth = reader.GetDateTime("dob");
+                dateOfBirth = reader.GetDateOnly("dob");
                 location = reader.GetString("location");
                 email = reader.GetString("email");
                 imageUrl = reader.IsDBNull(reader.GetOrdinal("image_url")) ? null : reader.GetString("image_url");

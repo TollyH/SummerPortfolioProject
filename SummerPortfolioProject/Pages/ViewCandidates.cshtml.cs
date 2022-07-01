@@ -15,6 +15,7 @@ namespace SummerPortfolioProject.Pages
 
             public PublicCandidate()
             {
+                // Default values to prevent null
                 Id = 0;
                 Forename = "";
                 Surname = "";
