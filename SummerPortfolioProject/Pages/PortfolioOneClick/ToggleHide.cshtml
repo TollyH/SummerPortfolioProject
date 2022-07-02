@@ -2,7 +2,7 @@
 @model SummerPortfolioProject.Pages.ToggleHideModel
 @using MySqlConnector
 @{
-    if (Model.RequirePermissions(moderatePortfolios: true, modifyPortfolios: true))
+    if (Model.RequirePermissions(moderatePortfolios: true))
     {
         Model.SqlConnection.Open();
         using MySqlCommand command = new("UPDATE portfolios SET approved = NOT approved WHERE id=@id;", Model.SqlConnection);
