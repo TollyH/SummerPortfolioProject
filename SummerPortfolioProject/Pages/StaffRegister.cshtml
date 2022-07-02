@@ -1,0 +1,42 @@
+﻿@page
+@model SummerPortfolioProject.Pages.StaffRegisterModel
+
+<h1 class="display-6">Register for a staff account</h1>
+@{
+    if (Model.matchError)
+    {
+        <div class="alert alert-danger">
+            Your email or password did not match.
+        </div>
+    }
+}
+<div class="alert alert-warning">
+    By default your account will not have any permissions. You do not need an account to submit portfolios.
+</div>
+<form method="post" style="margin-top: 20px">
+    <table>
+        <tr>
+            <td><label class="required" for="Username">Username</label></td>
+            <td><input class="form-control m-1" name="Username" type="text" required/></td>
+        </tr>
+        <tr>
+            <td><label class="required" for="Email">Email Address</label></td>
+            <td><input class="form-control m-1" name="Email" type="email" required/></td>
+        </tr>
+        <tr>
+            <td><label class="required" for="EmailConfirm">Confirm Email Address</label></td>
+            <td><input class="form-control m-1" name="EmailConfirm" type="email" required/></td>
+        </tr>
+        <tr>
+            <td><label class="required" for="Password">Password</label></td>
+            <td><input class="form-control m-1" name="Password" type="password" required/></td>
+        </tr>
+        <tr>
+            <td><label class="required" for="PasswordConfirm">Confirm Password</label></td>
+            <td><input class="form-control m-1" name="PasswordConfirm" type="password" required/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success" value="Register"/></td>
+        </tr>
+    </table>
+</form>
