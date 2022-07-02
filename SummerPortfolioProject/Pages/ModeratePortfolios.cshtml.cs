@@ -39,7 +39,9 @@ namespace SummerPortfolioProject.Pages
         {
             base.OnGet();
             SqlConnection.Open();
-            using MySqlCommand command = new("SELECT id, surname, forename, dob, location, email, approved FROM portfolios;", SqlConnection);
+            using MySqlCommand command = new("SELECT id, surname, forename, dob, location, email, approved FROM portfolios " +
+                "WHERE location LIKE CONCAT('%', @locationSearch, '%');", SqlConnection);
+            _ = command.Parameters.AddWithValue("locationSearch", Request.Query["locationSearch"].ToString());
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -68,6 +70,11 @@ namespace SummerPortfolioProject.Pages
                 }
                 SqlConnection.Close();
             }
+        }
+
+        public void OnPost()
+        {
+            OnGet();
         }
     }
 }
