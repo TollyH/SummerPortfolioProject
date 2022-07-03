@@ -1,0 +1,100 @@
+﻿@page
+@model SummerPortfolioProject.Pages.StaffPermissionsModel
+@{
+    Model.RequirePermissions(modifyStaffPerms: true);
+    ViewData["Title"] = "Staff Permission Management";
+}
+
+<h1 class="display-6">Manage staff permissions</h1>
+<div class="alert alert-info">
+    <strong>Permissions:</strong>
+    <ul>
+        <li>
+            Moderate Portfolios
+            <ul>
+                <li>Allows viewing of sensitive portfolio data</li>
+                <li>Allows viewing of hidden portfolios</li>
+                <li>Allows approving/hiding of all portfolios</li>
+            </ul>
+        </li>
+        <li>
+            Modify Portfolios
+            <ul>
+                <li>Allows editing of all portfolio data</li>
+                <li>Allows deletion of portfolios <b>when combined with the above permission</b></li>
+            </ul>
+        </li>
+        <li>
+            Modify Staff Permissions
+            <ul>
+                <li>Allows viewing a list of all staff accounts</li>
+                <li>Allows editing of all staff account's permissions</li>
+                <li class="text-danger fw-bold">This includes the staff member's own permissions!</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Permissions</th>
+    </tr>
+    @foreach (StaffPermissionsModel.StaffMember staff in Model.staffMembers)
+    {
+        <tr>
+            <td>@staff.Id</td>
+            <td>@staff.Username</td>
+            <td>@staff.Email</td>
+            <td><ul>
+                @{
+                    if (staff.Permissions.ModeratePortfolios)
+                    {
+                        <li>Moderate Portfolios</li>
+                    }
+                    if (staff.Permissions.ModifyPortfolios)
+                    {
+                        <li>Modify Portfolios</li>
+                    }
+                    if (staff.Permissions.ModifyStaffPerms)
+                    {
+                        <li>Modify Staff Permissions</li>
+                    }
+                }
+            </ul></td>
+        </tr>
+    }
+</table>
+<div class="alert alert-warning">
+    Changes to permissions will take immediate effect. Granting a permission is as good as granting all permissions above it.
+</div>
+@{
+    if (Model.notFound)
+    {
+        <div class="alert alert-danger">
+            That staff account could not be found or no permission changes occured. Please try again.
+        </div>
+    }
+}
+<form method="post" style="margin-top: 20px">
+    <div>
+        <label for="Username">Username</label>
+        <input class="form-control m-1" name="Username" type="text"/>
+    </div>
+    <div class="form-check form-switch p-0">
+        <input class="form-check-input m-1" name="ModeratePortfolios" type="checkbox"/>
+        <label for="ModeratePortfolios">Moderate Portfolios</label>
+    </div>
+    <div class="form-check form-switch p-0">
+        <input class="form-check-input m-1" name="ModifyPortfolios" type="checkbox"/>
+        <label for="ModifyPortfolios">Modify Portfolios</label>
+    </div>
+    <div class="form-check form-switch p-0">
+        <input class="form-check-input m-1" name="ModifyStaffPermissions" type="checkbox"/>
+        <label class="text-danger" for="ModifyStaffPermissions">Modify Staff Permissions</label>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-success" value="Update"/>
+    </div>
+</form>
