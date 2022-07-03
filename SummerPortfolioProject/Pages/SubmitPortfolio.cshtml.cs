@@ -120,12 +120,6 @@ namespace SummerPortfolioProject.Pages
                         existingSkills[skillsReader.GetString("name")] = skillsReader.GetInt32("rating");
                     }
                     SqlConnection.Close();
-
-                    SqlConnection.Open();
-                    using MySqlCommand skillsDeleteCommand = new("DELETE FROM portfolio_skills WHERE portfolio_id=@id;", SqlConnection);
-                    _ = skillsDeleteCommand.Parameters.AddWithValue("id", editId.ToString());
-                    _ = skillsDeleteCommand.ExecuteNonQuery();
-                    SqlConnection.Close();
                 }
 
                 string[] skillNames = HttpContext.Request.Form["Skills"].ToString().ReplaceLineEndings().Split(Environment.NewLine);
@@ -143,6 +137,15 @@ namespace SummerPortfolioProject.Pages
             else
             {
                 // User has submitted skill rankings
+                int? editId = HttpContext.Session.GetInt32("EditId");
+                if (editId is not null)
+                {
+                    SqlConnection.Open();
+                    using MySqlCommand skillsDeleteCommand = new("DELETE FROM portfolio_skills WHERE portfolio_id=@id;", SqlConnection);
+                    _ = skillsDeleteCommand.Parameters.AddWithValue("id", editId);
+                    _ = skillsDeleteCommand.ExecuteNonQuery();
+                    SqlConnection.Close();
+                }
                 foreach (KeyValuePair<string, StringValues> skill in HttpContext.Request.Form)
                 {
                     if (skill.Key == "__RequestVerificationToken")
