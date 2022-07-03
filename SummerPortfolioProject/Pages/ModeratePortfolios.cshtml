@@ -8,9 +8,9 @@
 <form>
     <span>
         <label for="locationSearch" class="m-1 d-inline-block">Location</label>
-        <input class="form-control m-1 d-inline-block" style="width: 250px" type="text" name="locationSearch"/>
+        <input class="form-control m-1 d-inline-block" style="width: 250px" type="text" name="locationSearch" value="@Request.Query["locationSearch"]"/>
         <label for="skillSearch" class="m-1 d-inline-block">Skill</label>
-        <input class="form-control m-1 d-inline-block" style="width: 250px" type="text" name="skillSearch"/>
+        <input class="form-control m-1 d-inline-block" style="width: 250px" type="text" name="skillSearch" value="@Request.Query["skillSearch"]"/>
         <button type="submit" class="btn btn-primary m-1 d-inline-block"><span class="fa fa-search"></span> Search</button>
     </span>
 </form>
@@ -47,13 +47,13 @@
                 <a class="btn btn-secondary table-button nav-link text-white" href="/SubmitPortfolio?edit_id=@(candidate.Id)"><span class="fa fa-pencil"></span> Edit</a>
                 @if (candidate.Approved)
                 {
-                    <a class="btn btn-warning table-button nav-link text-black" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)"><span class="fa fa-minus"></span> Hide</a>
+                    <a class="btn btn-warning table-button nav-link text-black" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)&RedirectTo=%2FModeratePortfolios%3FlocationSearch%3D@(Request.Query["locationSearch"])%26skillSearch%3D@(Request.Query["skillSearch"])"><span class="fa fa-minus"></span> Hide</a>
                 }
                 else
                 {
-                    <a class="btn btn-success table-button nav-link text-white" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)"><span class="fa fa-check"></span> Approve</a>
+                    <a class="btn btn-success table-button nav-link text-white" href="/PortfolioOneClick/ToggleHide?id=@(candidate.Id)&RedirectTo=%2FModeratePortfolios%3FlocationSearch%3D@(Request.Query["locationSearch"])%26skillSearch%3D@(Request.Query["skillSearch"])"><span class="fa fa-check"></span> Approve</a>
                 }
-                <a class="btn btn-danger table-button nav-link text-white" href="/PortfolioOneClick/Delete?id=@(candidate.Id)"><span class="fa fa-trash"></span> Delete</a>
+                <a class="btn btn-danger table-button nav-link text-white" href="/PortfolioOneClick/Delete?id=@(candidate.Id)&RedirectTo=%2FModeratePortfolios%3FlocationSearch%3D@(Request.Query["locationSearch"])%26skillSearch%3D@(Request.Query["skillSearch"])"><span class="fa fa-trash"></span> Delete</a>
             </td>
         </tr>
     }

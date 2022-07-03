@@ -1,5 +1,6 @@
 ﻿@page
 @model SummerPortfolioProject.Pages.DeleteModel
+@using Microsoft.Extensions.Primitives
 @using MySqlConnector
 @{
     if (Model.RequirePermissions(moderatePortfolios: true, modifyPortfolios: true))
@@ -14,7 +15,14 @@
         Model.SqlConnection.Close();
         if (affectedRows > 0)
         {
-            Response.Redirect("/ModeratePortfolios");
+            if (Request.Query["RedirectTo"] == StringValues.Empty)
+            {
+                Response.Redirect("/ModeratePortfolios");
+            }
+            else
+            {
+                Response.Redirect(Request.Query["RedirectTo"]);
+            }
         }
         else
         {
