@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Primitives;
 using MySqlConnector;
 
 namespace SummerPortfolioProject.Pages
@@ -39,9 +40,17 @@ namespace SummerPortfolioProject.Pages
         {
             base.OnGet();
             SqlConnection.Open();
-            using MySqlCommand command = new("SELECT id, surname, forename, dob, location, email, approved FROM portfolios " +
-                "WHERE location LIKE CONCAT('%', @locationSearch, '%');", SqlConnection);
+            string commandText = "SELECT id, surname, forename, dob, location, email, approved FROM portfolios WHERE location LIKE CONCAT('%', @locationSearch, '%')";
+            commandText += Request.Query["skillSearch"] != StringValues.Empty && Request.Query["skillSearch"] != ""
+                // This is only included if the user is actually seaching by skill so that people with no entered skills still appear
+                ? " AND EXISTS (SELECT 1 FROM portfolio_skills WHERE portfolio_id = portfolios.id AND name LIKE CONCAT('%', @skillSearch, '%'));"
+                : ";";
+            using MySqlCommand command = new(commandText, SqlConnection);
             _ = command.Parameters.AddWithValue("locationSearch", Request.Query["locationSearch"].ToString());
+            if (Request.Query["skillSearch"] != StringValues.Empty && Request.Query["skillSearch"] != "")
+            {
+                _ = command.Parameters.AddWithValue("skillSearch", Request.Query["skillSearch"].ToString());
+            }
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
