@@ -66,12 +66,12 @@ namespace SummerPortfolioProject.Pages
                 int? editId = HttpContext.Session.GetInt32("EditId");
                 // User has submitted first part of the form
                 stage = 1;
-                surname = HttpContext.Request.Form["Surname"];
-                forename = HttpContext.Request.Form["Forename"];
-                dateOfBirth = HttpContext.Request.Form["DateOfBirth"];
-                location = HttpContext.Request.Form["Location"];
-                email = HttpContext.Request.Form["Email"];
-                imageUrl = HttpContext.Request.Form["ImageUrl"];
+                surname = Request.Form["Surname"];
+                forename = Request.Form["Forename"];
+                dateOfBirth = Request.Form["DateOfBirth"];
+                location = Request.Form["Location"];
+                email = Request.Form["Email"];
+                imageUrl = Request.Form["ImageUrl"];
                 if (imageUrl == "")
                 {
                     imageUrl = null;
@@ -122,7 +122,7 @@ namespace SummerPortfolioProject.Pages
                     SqlConnection.Close();
                 }
 
-                string[] skillNames = HttpContext.Request.Form["Skills"].ToString().ReplaceLineEndings().Split(Environment.NewLine);
+                string[] skillNames = Request.Form["Skills"].ToString().ReplaceLineEndings().Split(Environment.NewLine);
                 foreach (string skillName in skillNames)
                 {
                     skills.Add(new(skillName, existingSkills.GetValueOrDefault(skillName, 0)));
@@ -146,7 +146,7 @@ namespace SummerPortfolioProject.Pages
                     _ = skillsDeleteCommand.ExecuteNonQuery();
                     SqlConnection.Close();
                 }
-                foreach (KeyValuePair<string, StringValues> skill in HttpContext.Request.Form)
+                foreach (KeyValuePair<string, StringValues> skill in Request.Form)
                 {
                     if (skill.Key == "__RequestVerificationToken")
                     {

@@ -11,8 +11,8 @@ namespace SummerPortfolioProject.Pages
 
         public void OnPost()
         {
-            string username = HttpContext.Request.Form["Username"];
-            string password = HttpContext.Request.Form["Password"];
+            string username = Request.Form["Username"];
+            string password = Request.Form["Password"];
 
             if (Authenticate(username, password))
             {

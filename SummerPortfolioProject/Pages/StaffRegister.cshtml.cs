@@ -12,11 +12,11 @@ namespace SummerPortfolioProject.Pages
 
         public void OnPost()
         {
-            string username = HttpContext.Request.Form["Username"];
-            string email = HttpContext.Request.Form["Email"];
-            string emailConfirm = HttpContext.Request.Form["EmailConfirm"];
-            string password = HttpContext.Request.Form["Password"];
-            string passwordConfirm = HttpContext.Request.Form["PasswordConfirm"];
+            string username = Request.Form["Username"];
+            string email = Request.Form["Email"];
+            string emailConfirm = Request.Form["EmailConfirm"];
+            string password = Request.Form["Password"];
+            string passwordConfirm = Request.Form["PasswordConfirm"];
 
             if (email != emailConfirm || password != passwordConfirm)
             {
