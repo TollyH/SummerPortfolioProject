@@ -12,6 +12,12 @@
             Your email or password did not match.
         </div>
     }
+    if (Model.usernameExists)
+    {
+        <div class="alert alert-danger">
+            A user with that username already exists.
+        </div>
+    }
 }
 <div class="alert alert-warning">
     By default your account will not have any permissions. You do not need an account to submit portfolios.

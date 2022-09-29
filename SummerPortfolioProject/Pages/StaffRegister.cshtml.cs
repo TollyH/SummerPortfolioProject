@@ -9,6 +9,7 @@ namespace SummerPortfolioProject.Pages
         public StaffRegisterModel(MySqlConnection sqlConnection) : base(sqlConnection) { }
 
         internal bool matchError = false;
+        internal bool usernameExists = false;
 
         public void OnPost()
         {
@@ -25,15 +26,25 @@ namespace SummerPortfolioProject.Pages
             else
             {
                 SqlConnection.Open();
-                using MySqlCommand command = new("INSERT INTO staff_accounts (`username`, `password`, `email`) VALUES (@username, @password, @email);", SqlConnection);
-                _ = command.Parameters.AddWithValue("username", username);
-                _ = command.Parameters.AddWithValue("password", HashPassword(password));
-                _ = command.Parameters.AddWithValue("email", email);
-                _ = command.ExecuteNonQuery();
+                using MySqlCommand existsCommand = new("SELECT NULL FROM staff_accounts WHERE username=@username;", SqlConnection);
+                _ = existsCommand.Parameters.AddWithValue("username", username);
+                MySqlDataReader reader = existsCommand.ExecuteReader();
+                usernameExists = reader.Read();
                 SqlConnection.Close();
 
-                HttpContext.Session.SetString("LoggedInUsername", username);
-                Response.Redirect("/?newauth=1");
+                if (!usernameExists)
+                {
+                    SqlConnection.Open();
+                    using MySqlCommand command = new("INSERT INTO staff_accounts (`username`, `password`, `email`) VALUES (@username, @password, @email);", SqlConnection);
+                    _ = command.Parameters.AddWithValue("username", username);
+                    _ = command.Parameters.AddWithValue("password", HashPassword(password));
+                    _ = command.Parameters.AddWithValue("email", email);
+                    _ = command.ExecuteNonQuery();
+                    SqlConnection.Close();
+
+                    HttpContext.Session.SetString("LoggedInUsername", username);
+                    Response.Redirect("/?newauth=1");
+                }
             }
         }
     }
