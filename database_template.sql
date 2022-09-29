@@ -33,6 +33,5 @@ CREATE TABLE IF NOT EXISTS `staff_accounts` (
   `can_modify_portfolios` bit(1) NOT NULL DEFAULT b'0',
   `can_modify_staff_perms` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`) USING HASH,
-  UNIQUE KEY `email` (`email`) USING HASH
+  UNIQUE KEY `username` (`username`) USING HASH
 );
